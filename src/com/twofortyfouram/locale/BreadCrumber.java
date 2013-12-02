@@ -15,7 +15,7 @@ package com.twofortyfouram.locale;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import dev.ukanth.ufirewall.R;
+import dev.ukanth.ufirewall.donate.R;
 
 /**
  * Utility class to generate a breadcrumb title string for {@code Activity} instances in Locale.

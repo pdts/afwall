@@ -29,7 +29,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
-import dev.ukanth.ufirewall.R;
+import dev.ukanth.ufirewall.donate.R;
 
 /**
  * ON/OFF Widget implementation

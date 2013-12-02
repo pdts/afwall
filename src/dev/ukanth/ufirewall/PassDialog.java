@@ -34,6 +34,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import dev.ukanth.ufirewall.donate.R;
 
 /**
  * Dialog displayed to request a password.

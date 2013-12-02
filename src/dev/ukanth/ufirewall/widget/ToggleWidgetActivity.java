@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 import dev.ukanth.ufirewall.Api;
 import dev.ukanth.ufirewall.G;
-import dev.ukanth.ufirewall.R;
+import dev.ukanth.ufirewall.donate.R;
 
 public class ToggleWidgetActivity extends Activity implements OnClickListener {
 	

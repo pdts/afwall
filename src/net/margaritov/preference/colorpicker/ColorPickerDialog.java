@@ -23,7 +23,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import dev.ukanth.ufirewall.R;
+import dev.ukanth.ufirewall.donate.R;
 
 public class ColorPickerDialog 
 	extends 

@@ -78,6 +78,7 @@ import com.actionbarsherlock.view.MenuItem.OnActionExpandListener;
 
 import dev.ukanth.ufirewall.Api.PackageInfoData;
 import dev.ukanth.ufirewall.RootShell.RootCommand;
+import dev.ukanth.ufirewall.donate.R;
 import dev.ukanth.ufirewall.preferences.PreferencesActivity;
  
 /**

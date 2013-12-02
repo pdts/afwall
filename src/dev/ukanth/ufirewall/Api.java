@@ -76,6 +76,7 @@ import android.util.SparseArray;
 import android.widget.Toast;
 import dev.ukanth.ufirewall.MainActivity.GetAppList;
 import dev.ukanth.ufirewall.RootShell.RootCommand;
+import dev.ukanth.ufirewall.donate.R;
 import eu.chainfire.libsuperuser.Shell.SU;
 
 /**

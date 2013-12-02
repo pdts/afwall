@@ -33,7 +33,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import dev.ukanth.ufirewall.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -42,6 +41,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
 import com.actionbarsherlock.view.Window;
+
+import dev.ukanth.ufirewall.donate.R;
 
 public abstract class DataDumpActivity extends SherlockActivity {
 

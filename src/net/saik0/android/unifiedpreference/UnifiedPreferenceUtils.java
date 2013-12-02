@@ -18,6 +18,7 @@ package net.saik0.android.unifiedpreference;
 
 import java.util.Map;
 
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -29,8 +30,7 @@ import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
 import android.preference.TwoStatePreference;
 import android.text.TextUtils;
-import net.margaritov.preference.colorpicker.ColorPickerPreference;
-import dev.ukanth.ufirewall.R;
+import dev.ukanth.ufirewall.donate.R;
 
 public final class UnifiedPreferenceUtils {
 

@@ -39,15 +39,15 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
-import dev.ukanth.ufirewall.Log;
 import android.widget.Toast;
 
 import com.stericson.RootTools.RootTools;
 
 import dev.ukanth.ufirewall.Api;
 import dev.ukanth.ufirewall.G;
-import dev.ukanth.ufirewall.R;
+import dev.ukanth.ufirewall.Log;
 import dev.ukanth.ufirewall.admin.AdminDeviceReceiver;
+import dev.ukanth.ufirewall.donate.R;
 
 public class PreferencesActivity extends UnifiedSherlockPreferenceActivity
 		implements OnSharedPreferenceChangeListener {

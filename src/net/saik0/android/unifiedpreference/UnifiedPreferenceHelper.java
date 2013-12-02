@@ -41,7 +41,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.util.Xml;
-import dev.ukanth.ufirewall.R;
+import dev.ukanth.ufirewall.donate.R;
 
 public class UnifiedPreferenceHelper {
 	private final PreferenceActivity mActivity;

@@ -17,7 +17,7 @@
 package eu.chainfire.libsuperuser;
 
 import dev.ukanth.ufirewall.Log;
-import dev.ukanth.ufirewall.BuildConfig;
+import dev.ukanth.ufirewall.donate.BuildConfig;
 
 /**
  * Utility class that intentionally does nothing when not in debug mode

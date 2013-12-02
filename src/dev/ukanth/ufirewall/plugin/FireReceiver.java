@@ -23,7 +23,7 @@ import android.preference.PreferenceManager;
 import android.widget.Toast;
 import dev.ukanth.ufirewall.Api;
 import dev.ukanth.ufirewall.G;
-import dev.ukanth.ufirewall.R;
+import dev.ukanth.ufirewall.donate.R;
 
 /**
  * This is the "fire" BroadcastReceiver for a Locale Plug-in setting.

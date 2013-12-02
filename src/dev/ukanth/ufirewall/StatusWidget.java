@@ -23,7 +23,6 @@
 
 package dev.ukanth.ufirewall;
 
-import dev.ukanth.ufirewall.RootShell.RootCommand;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -34,6 +33,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.Toast;
+import dev.ukanth.ufirewall.RootShell.RootCommand;
+import dev.ukanth.ufirewall.donate.R;
 
 /**
  * ON/OFF Widget implementation

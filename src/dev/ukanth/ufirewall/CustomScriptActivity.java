@@ -36,6 +36,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import dev.ukanth.ufirewall.donate.R;
 
 /**
  * Custom scripts activity.

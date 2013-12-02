@@ -6,6 +6,8 @@ import android.webkit.WebView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 
+import dev.ukanth.ufirewall.donate.R;
+
 public class HelpActivity extends SherlockActivity {
 
 	@Override
