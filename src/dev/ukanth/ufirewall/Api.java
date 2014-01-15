@@ -50,6 +50,7 @@ import java.util.concurrent.RejectedExecutionException;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -62,6 +63,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -72,6 +74,7 @@ import android.os.UserManager;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
+import android.util.DisplayMetrics;
 import android.util.SparseArray;
 import android.widget.Toast;
 import dev.ukanth.ufirewall.MainActivity.GetAppList;
@@ -480,18 +483,26 @@ public final class Api {
 		addInterfaceRouting(ctx, cmds);
 
 		// send wifi, 3G, VPN packets to the appropriate dynamic chain based on interface
+		if (G.enableVPN()) {
+			// if !enableVPN then we ignore those interfaces (pass all traffic)
+			for (final String itf : ITFS_VPN) {
+				cmds.add("-A " + AFWALL_CHAIN_NAME + " -o " + itf + " -j " + AFWALL_CHAIN_NAME + "-vpn");
+			}
+			// KitKat policy based routing - see:
+			// http://forum.xda-developers.com/showthread.php?p=48703545
+			// This covers mark range 0x3c - 0x47.  The official range is believed to be
+			// 0x3c - 0x45 but this is close enough.
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+				cmds.add("-A " + AFWALL_CHAIN_NAME + " -m mark --mark 0x3c/0xfffc -g " + AFWALL_CHAIN_NAME + "-vpn");
+				cmds.add("-A " + AFWALL_CHAIN_NAME + " -m mark --mark 0x40/0xfff8 -g " + AFWALL_CHAIN_NAME + "-vpn");
+			}
+		}
 		for (final String itf : ITFS_WIFI) {
 			cmds.add("-A " + AFWALL_CHAIN_NAME + " -o " + itf + " -j " + AFWALL_CHAIN_NAME + "-wifi");
 		}
 
 		for (final String itf : ITFS_3G) {
 			cmds.add("-A " + AFWALL_CHAIN_NAME + " -o " + itf + " -j " + AFWALL_CHAIN_NAME + "-3g");
-		}
-		if (G.enableVPN()) {
-			// if !enableVPN then we ignore those interfaces (pass all traffic)
-			for (final String itf : ITFS_VPN) {
-				cmds.add("-A " + AFWALL_CHAIN_NAME + " -o " + itf + " -j " + AFWALL_CHAIN_NAME + "-vpn");
-			}
 		}
 
 		final boolean any_wifi = uidsWifi.indexOf(SPECIAL_UID_ANY) >= 0;
@@ -601,7 +612,8 @@ public final class Api {
 			}
 
 		}
-		Collections.sort(uids);
+
+		Collections.sort(uids);	
 		return uids;
 	}
 	
@@ -1105,13 +1117,16 @@ public final class Api {
 		}
 		
 		//revert back to old approach
+		
+		//always use the defaul preferences to store cache value - reduces the application usage size
+		final SharedPreferences cachePrefs = ctx.getSharedPreferences("AFWallPrefs", Context.MODE_PRIVATE);
 
 		int count = 0;
 		try {
 			final PackageManager pkgmanager = ctx.getPackageManager();
 			final List<ApplicationInfo> installed = pkgmanager.getInstalledApplications(PackageManager.GET_META_DATA);
 			SparseArray<PackageInfoData> syncMap = new SparseArray<PackageInfoData>();
-			final Editor edit = prefs.edit();
+			final Editor edit = cachePrefs.edit();
 			boolean changed = false;
 			String name = null;
 			String cachekey = null;
@@ -1246,7 +1261,8 @@ public final class Api {
 			}
 		}
 		// Sort the array to allow using "Arrays.binarySearch" later
-		Collections.sort(listUids);
+		Collections.sort(listUids);	
+		
 		return listUids;
 	}
 
@@ -1525,6 +1541,28 @@ public final class Api {
 				}
 			}
 		 }
+	}
+	
+	/**
+	 * Cleanup the cache from profiles - Improve performance.
+	 * @param ctx
+	 */
+	public static void removeAllProfileCacheLabel(Context ctx){
+		SharedPreferences prefs;
+		final String cacheLabel = "cache.label.";
+		String cacheKey;
+		for(String profileName: G.profiles) {
+			prefs = ctx.getSharedPreferences(profileName, Context.MODE_PRIVATE);
+			if(prefs != null) {
+				Map<String,?> keys = prefs.getAll();
+				for(Map.Entry<String,?> entry : keys.entrySet()){
+					if(entry.getKey().startsWith(cacheLabel)){
+						cacheKey = entry.getKey();
+						prefs.edit().remove(cacheKey).commit();
+					}
+				 }		
+			}
+		}
 	}
 
 	public static boolean isPackageExists(PackageManager pm, String targetPackage) {
@@ -1883,12 +1921,14 @@ public final class Api {
 	    final int apiLevel = Build.VERSION.SDK_INT;
 	    if (apiLevel >= 9) { // above 2.3
 	        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+	        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	        Uri uri = Uri.fromParts(SCHEME, packageName, null);
 	        intent.setData(uri);
 	    } else { // below 2.3
 	        final String appPkgName = (apiLevel == 8 ? APP_PKG_NAME_22
 	                : APP_PKG_NAME_21);
 	        intent.setAction(Intent.ACTION_VIEW);
+	        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	        intent.setClassName(APP_DETAILS_PACKAGE_NAME,
 	                APP_DETAILS_CLASS_NAME);
 	        intent.putExtra(appPkgName, packageName);
@@ -1976,10 +2016,16 @@ public final class Api {
 	public static void updateLanguage(Context context, String lang) {
 	    if (!"".equals(lang)) {
 	        Locale locale = new Locale(lang);
-	        Locale.setDefault(locale);
+	       /* Locale.setDefault(locale);
 	        Configuration config = new Configuration();
 	        config.locale = locale;
-	        context.getResources().updateConfiguration(config, null);
+	        context.getResources().updateConfiguration(config, null);*/
+	        
+	        Resources res = context.getResources();
+			DisplayMetrics dm = res.getDisplayMetrics();
+			Configuration conf = res.getConfiguration();
+			conf.locale = locale;
+			res.updateConfiguration(conf, dm);
 	    }
 	}
 	
@@ -2003,7 +2049,7 @@ public final class Api {
 		}
 	}
 	
-	public static void setUserOwner(Context context)
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1) public static void setUserOwner(Context context)
 	{
 		if(supportsMultipleUsers(context)){
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
