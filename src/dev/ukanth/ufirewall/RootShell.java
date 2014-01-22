@@ -32,12 +32,12 @@ import java.util.NoSuchElementException;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import dev.ukanth.ufirewall.Log;
 import android.os.Binder;
 import android.os.IBinder;
 import android.widget.Toast;
-import eu.chainfire.libsuperuser.Shell;
+import dev.ukanth.ufirewall.donate.R;
 import eu.chainfire.libsuperuser.Debug;
+import eu.chainfire.libsuperuser.Shell;
 
 public class RootShell extends Service {
 
@@ -203,7 +203,8 @@ public class RootShell extends Service {
 		if (exitCode == 0 && state.successToast != NO_TOAST) {
 			Toast.makeText(mContext, mContext.getString(state.successToast), Toast.LENGTH_SHORT).show();
 		} else if (exitCode != 0 && state.failureToast != NO_TOAST) {
-			Toast.makeText(mContext, mContext.getString(state.failureToast), Toast.LENGTH_SHORT).show();
+			 Api.showAlertDialogActivity(mContext, mContext.getString(R.string.error_common), mContext.getString(state.failureToast));
+			 //Toast.makeText(mContext, mContext.getString(state.failureToast), Toast.LENGTH_SHORT).show();	
 		}
 	}
 
