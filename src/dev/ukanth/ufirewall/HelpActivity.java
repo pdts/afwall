@@ -2,12 +2,10 @@ package dev.ukanth.ufirewall;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
-
 import dev.ukanth.ufirewall.donate.R;
 import dev.ukanth.ufirewall.ui.about.AboutFragment;
 import dev.ukanth.ufirewall.ui.about.FAQFragment;

@@ -1,7 +1,6 @@
 package dev.ukanth.ufirewall;
 
 import java.util.Arrays;
-
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -13,9 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.actionbarsherlock.app.SherlockActivity;
-
 import dev.ukanth.ufirewall.donate.R;
 
 public class AppDetailActivity extends SherlockActivity {

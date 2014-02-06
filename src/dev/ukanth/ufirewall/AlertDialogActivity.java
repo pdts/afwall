@@ -5,10 +5,8 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
-
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Window;
-
 import dev.ukanth.ufirewall.donate.R;
 
 public class AlertDialogActivity  extends SherlockListActivity {

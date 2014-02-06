@@ -2,7 +2,6 @@ package dev.ukanth.ufirewall;
 
 import java.util.List;
 import java.util.concurrent.RejectedExecutionException;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

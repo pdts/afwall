@@ -46,8 +46,8 @@ import com.stericson.RootTools.RootTools;
 import dev.ukanth.ufirewall.Api;
 import dev.ukanth.ufirewall.G;
 import dev.ukanth.ufirewall.Log;
-import dev.ukanth.ufirewall.admin.AdminDeviceReceiver;
 import dev.ukanth.ufirewall.donate.R;
+import dev.ukanth.ufirewall.admin.AdminDeviceReceiver;
 
 public class PreferencesActivity extends UnifiedSherlockPreferenceActivity
 		implements OnSharedPreferenceChangeListener {
@@ -222,7 +222,7 @@ public class PreferencesActivity extends UnifiedSherlockPreferenceActivity
 		}
 		if (key.equals("showUid") || key.equals("enableMultiProfile")
 				|| key.equals("disableIcons") || key.equals("enableVPN") || key.equals("enableLAN")
-				|| key.equals("enableRoam") || key.equals("locale") ) {
+				|| key.equals("enableRoam") || key.equals("locale") || key.equals("showFilter") ) {
 			// revert back to Default profile when disabling multi-profile support
 			if (!G.enableMultiProfile()) {
 				G.storedPosition(0);

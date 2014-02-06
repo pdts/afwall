@@ -22,15 +22,13 @@
 
 package dev.ukanth.ufirewall;
 
-import android.content.Context;
-import android.os.Bundle;
-
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
-
 import dev.ukanth.ufirewall.RootShell.RootCommand;
 import dev.ukanth.ufirewall.donate.R;
+import android.content.Context;
+import android.os.Bundle;
 
 public class LogActivity extends DataDumpActivity {
 

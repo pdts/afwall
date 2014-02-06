@@ -32,7 +32,8 @@ import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Locale;
-
+import dev.ukanth.ufirewall.RootShell.RootCommand;
+import dev.ukanth.ufirewall.donate.R;
 import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -46,8 +47,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import dev.ukanth.ufirewall.RootShell.RootCommand;
-import dev.ukanth.ufirewall.donate.R;
+import dev.ukanth.ufirewall.Log;
 
 public final class InterfaceTracker {
 
